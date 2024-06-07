@@ -1,0 +1,119 @@
+oops doubts
+---------------
+
+inheritance can be done only for classes not for methods
+
+constructor : method with same class name
+
+this keyword - denotes current obj (ref variable)
+
+subclass - child 
+class - parent
+
+argument - set the value
+parameter - get the value
+
+in a class -> one sub class alone should be there (but that shouldn't have static , but inner class can have static)
+
+super - calls parent constructor
+
+multiple inheritance -> A extends B,C (Not poss in java)
+Multi level inheritance -> A extends B , B extends C etc . Its possible in java
+
+
+what happens when objects are created ?
+
+class loads -> calls static block -> objects gets instantiated -> constructor gets called
+
+how to load class : Class.forName(classname); // without even creating obj , it will call static block while class loads
+
+this keyword :
+----------------
+int age ; 
+
+class father{
+char gender;
+int age;
+
+void print(char gender , int age){
+	this.gender = gender; // this.gender -> class oda instance variable. gender -> nama pass panra argument odadhu
+	this.age = age;
+}
+
+
+FINAL KEYWORD: 
+----------------
+
+If a variable / method has final in it ; it can't be redefined / overwriiten
+
+SUPER KEYWORD:
+----------------
+
+If a child class overrides parent's properties.. child's property will be printed. Rather if we still want to print / access parent's even after overriding we can use super.
+
+Eg : Class father{
+	char gender = 'M' ; 
+	void print(){
+		sout("Parent class");
+	}
+
+	Class daughter extends father{
+	char gender = 'F';
+	void print(){
+		sout("child class");
+		super.print(); // calls parent class
+	}
+
+client.java:
+
+	father f = new father();
+	f.print(); // parent class
+
+	daughter d = new daughter();
+	d.print(); // child class
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------
+				INTERFACE , ABSTRACT & STATIC
+
+In interface only abstr method should be there
+eg: public void shape().  // here if we don't put abs also , it will take it as abs by default
+no {
+} should come , bcoz no implementation
+
+2. In abst class , both normal & abst method can be used.
+abs method shouldn't be implemented
+
+3. Obj can't be created for interface (bcoz interface is not a class)
+4. Obj can't be created for abst class
+
+STATIC: (can't be overridden)
+1. if static is there in a method , no need of creating obj . Eg : psvm
+
+2. static method can be called using class name. Mobile.show()
+(mobile - class name , show - static method name)
+
+3. create an obj , while creating an obj class gets loaded , then static is called , then constructor is called (Impt)
+4. Static variable is visible for static & non static methods.
+5. Static methods can access only static variables.
+6. Why static is used ? -> No need of creating obj every now & then .. we can access them with classname.
+
+Impt note :Instance variable cannot be overridden in java 
+
+eg:
+class b{
+int age = 10;}
+
+class c extends b{
+int age = 11;
+}
+
+--------------------------------------------------------------------------------------------------------------------------
+
+							CONCURRENCY
+
+Process - 
+Threads -  In simple term , multiple actions should be independently taking place without any overlap (Eg playing yt in one tab , porb solve in another tab)
+core - ??
