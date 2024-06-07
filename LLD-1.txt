@@ -1,0 +1,150 @@
+								OOPS
+							--------------------
+
+ class BankApi{     
+
+}
+
+ class BankApi{
+
+	method1(some input){
+	
+		//implementation of method1
+	}
+
+}
+ now we have another class which is extending BankApi class
+ class YesBankApi extends BankApi{
+
+	yesBankMethodForCheckingBalance(some input){
+	
+		//implementation of check balance.
+	}
+
+}
+
+//what you should note here, there is no mention of Method1, which was in BankApi, but since YesBank is extending BankApi, YesBank class automatically imports that method. 
+
+
+So, how the Java Virtual Machine sees the code is like this.....
+
+class YesBankApi extends BankApi{
+
+	yesBankMethodForCheckingBalance(some input){
+	
+		//implementation of check balance.
+	}
+	
+	
+	**in hidden form
+	method1(some input){
+		//implementation of method1 as per BankApi class
+	}
+		
+
+}
+
+ Now when you declare a variable like
+
+BankApi ba = new YesBankApi( );
+
+ba, will not be able to invoke those methods which are only in YesBankApi. Either ba will be able to call all the methods of BankApi, or it will be able to call those methods, which are declared in BankApi, but Overrided by YesBank.
+[1:55 pm, 14/5/2024] Shubham Rajput SA: This is what happens when you declare a List or Map like : 
+
+List<Integer> listOfInteger = new ArrayList<>( );
+
+or 
+ This is the crux of Liskov's substitution principle. One of the principle in SOLID principle
+
+
+
+In 
+A a = new B
+
+Left side is reference class, which means, object will have methods of A and all those methods will have implementation of Right side, which is instantiation class. 
+
+If right side class does not have any explicit implementation for methods of left side, the object a, will have implementation of left side by default. 
+
+As per java reference book.
+
+
+SHALLOW VS DEEP COPY
+----------------------------
+
+In java, unless you are using keyword 'new', you are not creating another object. 
+
+Consider it like the problems you must have solved with LinkedList
+ Shallow copy is like creating a database entry for a player with name of Thala. 
+Then another entry is made with the name of Mahi.
+But both the entries will point you to MS Dhoni. You have not created a new player and added all the capabilities of Dhoni. You just created references to Dhoni. This type of object creation is shallow copy.
+
+
+ Deep copy would have been, you created 
+
+Player Thala = new Player( );
+
+Thala.helicopterShot = MsDhoni.helicopterShot
+[3:07 pm, 17/5/2024] Shubham Rajput SA: You created a new player named Thala, and you copied all the attributes of MsDhoni to Thala. 
+
+That way, you have two players, different players, as exact copy of each other. 
+
+This is deep copy
+
+-----------------------------------XX------------------------------------------------
+
+CONCURRENCY & MULTITHREADING
+------------------------------
+
+Core is a hardware and thread is a virtual process. 
+
+One core can execute multiple threads, executing one, then another, then another. But yes, at one time only one will be executed. This is concurrency. 
+
+Now all threads are given to different cores, and all of them are being executed at the same time, it is multithreading.
+
+If you are defining number of threads yourself, thumb rule is 2x of total core you have. This way, there will be some amount of concurrency as well as multithreading. 
+
+When you give responsibility of creating threads to executor service, you delegate the responsibility to JVM to find best utilisation of cores as per CPU scheduling algorithm. 
+
+So you are partially correct. But in practical, it rarely happens that single core has only one thread, because there will be some input operation. So while the core will wait for input, simultaneously it will start executing another thread. And this goes on.
+
+
+
+I meant most of the time, one core simultaneously executes multiple threads. This is achieved when one thread's execution is stopped and another one starts getting executed. 
+
+Even if you create 4 threads, and you have 4 cores in your machine, even in that case it is not guaranteed that all 4 threads will be executing parallelly, it is completely upto the Operating System, which thread it wants to assign.
+
+
+
+Think of threads as tasks and cores as worker. 
+
+A worker can do multiple tasks at a time. A worker can do only one task at a time. 
+
+OS is your manager, it is upto the manager, which worker he wants to give how much of work. 
+In case, manager thinks that the tasks are not that much and every worker can do in parallel, manager will assign that. This will be known as parallelism or multithreading. 
+
+But tasks are more, so what happens that manager gives multiple tasks to every worker. 
+
+Now the worker is doing multiple tasks, pauses one, start doing another, and vice versa.
+
+
+CALLABLES & FUTURE :
+-------------------------
+Suppose you are cooking and you have one less ingredient, so instead of waiting for that ingredient, you keep on cooking while you Blinkit that ingredient. You can do rest of the preparation for food. Once you have that ingredient, you add it in your recipe
+
+You are executing code, and ask the JVM to keep on executing some part of the code in background, when you will require it, you will ask for it.
+But problem is that your function, which you are currently executing, requires that ingredient, so you are making a promise, that you will get this in future, you do rest of the calculation. 
+
+So you create a variable, of type Future, which means you will have its value in future
+Once all the execution is done, you ask your JVM that now is the time you deliver the result.
+If calculation is done, it will return it, if not, it will stop execution of all the process and get the value of that variable
+So, in crux, you told your code, you will have a value in Future, meanwhile keep on cooking rest of the thing, while making a space on plate for that Future object. 
+Now your code has done everything, at that time, you declare a Callable, to get the value of that ingredient and put it on the plate.
+Thats future and callable
+
+
+[11:41 am, 15/5/2024] Prem: I got a doubt here... 
+ If it is calculated when JVM asked it to deliver ..it gives the value to variable
+
+If in case when JVM asked to deliver , unfortunately thread is not able to calculate at that point of time means what will happen
+[11:42 am, 15/5/2024] Shubham Rajput SA: In that case you are adamant as hell that you need the value right now. Get it calculated. So JVM will stop execution of everything and get the value for you. Everything will stop unless you don't get the value
+
