@@ -1,0 +1,5 @@
+1. JDK , JRE & JVM
+
+JDK converts java code to byte code. While installing JDK, JRE & JVM comes along with it. (Top layer)
+JVM is a space where the code runs, but the file that we wrote is dependent on some other external files / class (Bottom layer)
+JRE -> It has those ext files. (mid layer)
